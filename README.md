@@ -1,74 +1,81 @@
-# React + TypeScript + Vite
+# IncCity 🏙️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A browser-based city-building incremental game where you start with a tiny 4-tile island and expand your territory, construct buildings, and grow your economy.
 
-Currently, two official plugins are available:
+## 🎮 About the Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+IncCity is a minimalist city-building game that runs entirely in your browser. Beginning with just a small island of four squares, players gradually expand their territory, strategically place buildings, and manage their finances to create a thriving city. The game features custom 3D buildings and terrain built from scratch using Three.js.
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Territory Expansion** - Grow your island from a small 4-tile plot to a sprawling city
+- **Building System** - Construct and demolish various buildings to optimize your city layout
+- **Resource Management** - Earn money through your buildings and manage your economy
+- **3D Graphics** - Custom-built 3D models and platforms created purely with Three.js (no pre-made assets)
+- **Local Persistence** - Your progress is automatically saved to localStorage
+- **Game Reset** - Restart your city either manually or automatically when funds run out
 
-## Expanding the ESLint configuration
+## 🛠️ Technologies
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React** - UI framework
+- **TypeScript** - Type-safe development
+- **React Three Fiber** - React renderer for Three.js
+- **Three.js** - 3D graphics and rendering
+- **React Router DOM** - Navigation and routing
+- **React Icons** - Icon library
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🚀 Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js (v16 or higher recommended)
+- pnpm package manager
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/GormanProg123/IncCity.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Navigate to the project directory:
+```bash
+cd IncCity
 ```
-# IncCity
+
+3. Install dependencies:
+```bash
+pnpm install
+```
+
+4. Start the development server:
+```bash
+pnpm run dev
+```
+
+5. Open your browser and enjoy building your city!
+
+## 🎯 How to Play
+
+1. Start with your initial 4-tile island
+2. Expand your territory by purchasing adjacent tiles
+3. Construct buildings to generate income
+4. Manage your finances carefully - running out of money triggers a game reset
+5. Strategically plan your city layout to maximize earnings
+6. Use the reset button to start fresh at any time
+
+## 📝 License
+
+This project is open source and available under the MIT License.
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
+
+## 👨‍💻 Author
+
+Created by GormanProg123
+
+---
+
+**Enjoy building your city! 🏗️**
