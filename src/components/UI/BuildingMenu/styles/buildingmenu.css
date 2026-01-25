@@ -1,0 +1,123 @@
+.building-menu-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+}
+
+.building-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(30, 30, 30, 0.95);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.building-segments {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.building-segments button {
+  padding: 6px 10px;
+  background: #333;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.building-segments button.active {
+  background: gold;
+  color: black;
+  font-weight: bold;
+}
+
+.building-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.toggle-button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #222;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background 0.2s;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-button:hover {
+  background: #555;
+}
+
+.building-menu {
+  display: flex;
+  gap: 10px;
+  background: rgba(30, 30, 30, 0.9);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.building-menu button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #444;
+  color: white;
+  transition: background 0.2s;
+}
+
+.building-menu button:hover {
+  background: #666;
+}
+
+.building-menu button.active {
+  background: gold;
+  color: black;
+  font-weight: bold;
+}
+
+.building-info {
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: rgba(20, 20, 20, 0.9);
+  border-radius: 6px;
+  font-size: 13px;
+  color: #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.info-row span:first-child {
+  color: #aaa;
+}
+
+.info-row.danger span:last-child {
+  color: #ff6b6b;
+  font-weight: bold;
+}

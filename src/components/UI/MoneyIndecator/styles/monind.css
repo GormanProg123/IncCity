@@ -1,0 +1,22 @@
+.money-indicator {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.money-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  color: rgb(2, 235, 33);
+
+  transform: translateY(2px);
+}
+
+.money-amount {
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+}

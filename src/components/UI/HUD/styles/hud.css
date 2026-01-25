@@ -1,0 +1,18 @@
+.game-hud {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.hud-modes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

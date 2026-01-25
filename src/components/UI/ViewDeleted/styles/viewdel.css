@@ -1,0 +1,21 @@
+.button-deleted {
+  width: 64px;
+  height: 64px;
+  background: #222;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-deleted.active {
+  background: #df0000;
+}
+
+.icon-deleted {
+  width: 48px;
+  height: 48px;
+  color: white;
+}
