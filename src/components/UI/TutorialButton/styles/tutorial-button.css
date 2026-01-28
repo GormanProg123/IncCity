@@ -1,0 +1,33 @@
+.button-tutorial {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px; /* слегка скруглённые углы */
+  background: #222;
+  border: none;
+  color: white;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
+}
+
+.button-tutorial:hover {
+  background: #333;
+  transform: translateY(-1px);
+}
+
+.button-tutorial:active {
+  transform: translateY(0);
+  background: #111;
+}
+
+.icon-tutorial {
+  width: 24px;
+  height: 24px;
+  color: white;
+}

@@ -1,12 +1,8 @@
 import "./styles/viewdel.css";
 import { BsBuildingFillX } from "react-icons/bs";
+import type { ViewDeletedProps } from "../../../types/ui";
 
-type ViewDeleted = {
-  active: boolean;
-  onToggle: () => void;
-};
-
-export const ViewDeleted = ({ active, onToggle }: ViewDeleted) => {
+export const ViewDeleted = ({ active, onToggle }: ViewDeletedProps) => {
   return (
     <button
       className={`button-deleted ${active ? "active" : ""}`}

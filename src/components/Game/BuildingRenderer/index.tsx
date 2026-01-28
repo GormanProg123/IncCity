@@ -12,11 +12,7 @@ import { Restaurant } from "../Buildings/Malls/Restaurant";
 import { Cinema } from "../Buildings/Fun/Сinema";
 import { Bank } from "../Buildings/Goverment/Bank";
 import { FireStation } from "../Buildings/Goverment/FireStation";
-
-interface BuildingRendererProps {
-  buildingHere: string | null;
-  cellSize: number;
-}
+import type { BuildingRendererProps } from "../../../types/game";
 
 export const BuildingRenderer = ({
   buildingHere,

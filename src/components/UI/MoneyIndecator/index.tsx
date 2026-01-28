@@ -1,9 +1,6 @@
 import "./styles/monind.css";
 import { MdAttachMoney } from "react-icons/md";
-
-type MoneyIndicatorProps = {
-  amount?: number;
-};
+import type { MoneyIndicatorProps } from "../../../types/ui";
 
 export const MoneyIndicator = ({ amount }: MoneyIndicatorProps) => {
   return (

@@ -1,10 +1,6 @@
 import * as THREE from "three";
-import type { ThreeElements } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
-
-type SuperMarketProps = ThreeElements["mesh"] & {
-  cellSize?: number;
-};
+import type { SuperMarketProps } from "../../../../../types/buildings";
 
 export const SuperMarket = ({ cellSize = 0.5, ...props }: SuperMarketProps) => {
   const ref = useRef<THREE.Mesh>(null!);

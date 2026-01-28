@@ -1,15 +1,12 @@
 import { useMemo } from "react";
 import type { CellCoord } from "../types/cell";
 import { cellKey } from "../types/cell";
+import type { ExpansionCell } from "../types/hooks";
 
 const START_CENTER = { x: 0.5, z: 0.5 };
 const MAX_DISTANCE = 8;
 const BASE_EXPAND_COST = 50;
 const COST_STEP = 5;
-
-export type ExpansionCell = CellCoord & {
-  cost: number;
-};
 
 export const useCellExpansion = (cells: CellCoord[]) => {
   const canExpandTo = (x: number, z: number) => {

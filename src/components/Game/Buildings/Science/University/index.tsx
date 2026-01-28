@@ -1,12 +1,7 @@
 import * as THREE from "three";
-import type { ThreeElements } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import { useMemo, useRef } from "react";
-
-type UniversityProps = ThreeElements["group"] & {
-  floors?: number;
-  cellSize?: number;
-};
+import type { UniversityProps } from "../../../../../types/buildings";
 
 export const University = ({
   floors = 5,

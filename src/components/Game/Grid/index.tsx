@@ -1,11 +1,6 @@
 import * as THREE from "three";
 import { Line } from "@react-three/drei";
-
-type GridProps = {
-  size?: number;
-  color?: string;
-  lineWidth?: number;
-};
+import type { GridProps } from "../../../types/game";
 
 export const Grid = ({
   size = 1,

@@ -1,9 +1,6 @@
 import "./styles/restartbutton.css";
 import { IoReload } from "react-icons/io5";
-
-interface RestartButtonProps {
-  onRestart: () => void;
-}
+import type { RestartButtonProps } from "../../../types/ui";
 
 export const RestartButton = ({ onRestart }: RestartButtonProps) => {
   const handleClick = () => {

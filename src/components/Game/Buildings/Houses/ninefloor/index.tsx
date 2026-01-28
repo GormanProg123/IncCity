@@ -1,11 +1,6 @@
 import * as THREE from "three";
-import type { ThreeElements } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
-
-type NineFloorHouseProps = ThreeElements["mesh"] & {
-  floors?: number;
-  cellSize?: number;
-};
+import type { NineFloorHouseProps } from "../../../../../types/buildings";
 
 export const NineFloorHouse = ({
   floors = 9,

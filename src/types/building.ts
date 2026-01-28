@@ -78,15 +78,15 @@ export const BUILDINGS: Record<
   cinema: {
     cost: 30,
     floors: 1,
-    incomePerTick: 5,
+    incomePerTick: 4,
     demolishCost: 40,
   },
 
   bank: {
-    cost: 50,
+    cost: 100,
     floors: 1,
-    incomePerTick: 10,
-    demolishCost: 80,
+    incomePerTick: 8,
+    demolishCost: 120,
   },
 
   "fire-station": {
@@ -97,16 +97,16 @@ export const BUILDINGS: Record<
   },
 
   hotel: {
-    cost: 20,
+    cost: 25,
     floors: 9,
-    incomePerTick: 8,
+    incomePerTick: 5,
     demolishCost: 30,
   },
 
   university: {
     cost: 20,
     floors: 5,
-    incomePerTick: 5,
+    incomePerTick: 3,
     demolishCost: 30,
   },
 };
