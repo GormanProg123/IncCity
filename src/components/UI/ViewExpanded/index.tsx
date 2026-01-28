@@ -1,12 +1,8 @@
 import "./styles/viewexp.css";
 import { IoGrid } from "react-icons/io5";
+import type { ViewExpandedProps } from "../../../types/ui";
 
-type ViewExpanded = {
-  active: boolean;
-  onToggle: () => void;
-};
-
-export const ViewExpanded = ({ active, onToggle }: ViewExpanded) => {
+export const ViewExpanded = ({ active, onToggle }: ViewExpandedProps) => {
   return (
     <button
       className={`button-expanded ${active ? "active" : ""}`}

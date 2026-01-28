@@ -1,19 +1,12 @@
 import "./styles/hud.css";
 import { MoneyIndicator } from "../MoneyIndecator";
 import { BuildingMenu } from "../BuildingMenu";
-import type { BuildingType } from "../../../types/building";
 import { ViewExpanded } from "../ViewExpanded";
 import { ViewDeleted } from "../ViewDeleted";
-
-type GameHUDProps = {
-  selectedBuilding?: BuildingType | null;
-  onSelectBuilding?: (buildingType: BuildingType | null) => void;
-  money: number;
-  expandMode: boolean;
-  onToggleExpandMode: () => void;
-  deletedMode: boolean;
-  onToggleDeletedMode: () => void;
-};
+import { TutorialButton } from "../TutorialButton";
+import { RestartButton } from "../RestartButton";
+import { CameraModeToggle } from "../CameraModeToggle";
+import type { GameHUDProps } from "../../../types/ui";
 
 export const GameHUD = ({
   selectedBuilding,
@@ -23,21 +16,41 @@ export const GameHUD = ({
   onToggleExpandMode,
   deletedMode,
   onToggleDeletedMode,
+  onOpenTutorial,
+  onRestart,
+  cameraMode,
+  onToggleCameraMode,
 }: GameHUDProps) => {
   return (
-    <div className="game-hud">
-      <MoneyIndicator amount={money} />
-
-      <div className="hud-modes">
-        <ViewDeleted active={deletedMode} onToggle={onToggleDeletedMode} />
-
-        <ViewExpanded active={expandMode} onToggle={onToggleExpandMode} />
+    <>
+      <div className="hud-top-left">
+        <TutorialButton onOpen={onOpenTutorial} />
       </div>
 
-      <BuildingMenu
-        selectedBuilding={selectedBuilding}
-        onSelectBuilding={onSelectBuilding}
-      />
-    </div>
+      <div className="hud-top-center">
+        <CameraModeToggle
+          cameraMode={cameraMode}
+          onToggle={onToggleCameraMode}
+        />
+      </div>
+
+      <div className="hud-top-right">
+        <RestartButton onRestart={onRestart} />
+      </div>
+
+      <div className="game-hud">
+        <MoneyIndicator amount={money} />
+
+        <div className="hud-modes">
+          <ViewDeleted active={deletedMode} onToggle={onToggleDeletedMode} />
+          <ViewExpanded active={expandMode} onToggle={onToggleExpandMode} />
+        </div>
+
+        <BuildingMenu
+          selectedBuilding={selectedBuilding}
+          onSelectBuilding={onSelectBuilding}
+        />
+      </div>
+    </>
   );
 };

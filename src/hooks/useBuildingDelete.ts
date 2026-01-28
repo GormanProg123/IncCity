@@ -1,14 +1,7 @@
 import { useCallback } from "react";
-import type { BuiltBuildingsMap } from "../types/cell";
 import { cellKey } from "../types/cell";
 import { BUILDINGS } from "../types/building";
-
-type UseBuildingDeleteArgs = {
-  builtBuildings: BuiltBuildingsMap;
-  setBuiltBuildings: React.Dispatch<React.SetStateAction<BuiltBuildingsMap>>;
-  money: number;
-  onPay: (amount: number) => void;
-};
+import type { UseBuildingDeleteArgs } from "../types/hooks";
 
 export const useBuildingDelete = ({
   builtBuildings,

@@ -1,11 +1,7 @@
 import * as THREE from "three";
-import type { ThreeElements } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import { useMemo, useRef } from "react";
-
-type CinemaProps = ThreeElements["group"] & {
-  cellSize?: number;
-};
+import type { CinemaProps } from "../../../../../types/buildings";
 
 export const Cinema = ({ cellSize = 0.5, ...props }: CinemaProps) => {
   const ref = useRef<THREE.Group>(null!);

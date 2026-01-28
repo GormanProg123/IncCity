@@ -1,11 +1,6 @@
 import * as THREE from "three";
-import type { ThreeElements } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
-
-type HospitalProps = ThreeElements["group"] & {
-  floors?: number;
-  cellSize?: number;
-};
+import type { HospitalProps } from "../../../../../types/buildings";
 
 export const Hospital = ({
   floors = 3,

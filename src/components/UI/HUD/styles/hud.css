@@ -11,6 +11,28 @@
   z-index: 1000;
 }
 
+.hud-top-left {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 2000;
+}
+
+.hud-top-right {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+}
+
+.hud-top-center {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+}
+
 .hud-modes {
   display: flex;
   flex-direction: column;

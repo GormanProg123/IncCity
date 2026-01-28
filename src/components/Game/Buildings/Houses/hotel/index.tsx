@@ -1,11 +1,6 @@
 import * as THREE from "three";
-import type { ThreeElements } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
-
-type HotelProps = ThreeElements["group"] & {
-  floors?: number;
-  cellSize?: number;
-};
+import type { HotelProps } from "../../../../../types/buildings";
 
 export const Hotel = ({ floors = 9, cellSize = 0.5, ...props }: HotelProps) => {
   const groupRef = useRef<THREE.Group>(null!);

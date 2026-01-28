@@ -2,9 +2,8 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Cell } from "../Cell";
 import { Grid } from "../Grid";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef } from "react";
 import { GameHUD } from "../../UI/HUD";
-import { RestartButton } from "../../UI/RestartButton";
 import { cellKey } from "../../../types/cell";
 import { useGameState } from "../../../hooks/useGameState";
 import { useCellExpansion } from "../../../hooks/useCellExpansion";
@@ -14,6 +13,9 @@ import { Html } from "@react-three/drei";
 import { IoIosAddCircle } from "react-icons/io";
 import { TiDelete } from "react-icons/ti";
 import { BuildingRenderer } from "../BuildingRenderer";
+import { Tutorial } from "../../UI/Tutorial";
+import type { CameraMode } from "../../../types/CameraMode";
+import { FreeCameraControls } from "../FreeCameraControls";
 
 const CELL_SIZE = 1;
 
@@ -32,9 +34,21 @@ export const MainScene = () => {
   } = useGameState();
 
   const { expansionCells } = useCellExpansion(cells);
-
+  const [cameraMode, setCameraMode] = useState<CameraMode>("orbit");
   const [expandMode, setExpandMode] = useState(false);
   const [deletedMode, setDeletedMode] = useState(false);
+  const [tutorialOpen, setTutorialOpen] = useState(
+    !localStorage.getItem("tutorialSeen"),
+  );
+  const orbitControlsRef = useRef<any>(null);
+
+  const handleToggleCameraMode = () => {
+    if (cameraMode === "orbit") {
+      setCameraMode("free");
+    } else {
+      setCameraMode("orbit");
+    }
+  };
 
   const handleCellClick = useCallback(
     (x: number, z: number) => {
@@ -72,11 +86,22 @@ export const MainScene = () => {
     setDeletedMode(false);
   };
 
+  const handleCloseTutorial = () => {
+    setTutorialOpen(false);
+    localStorage.setItem("tutorialSeen", "true");
+  };
+
   return (
     <div style={{ width: "100%", height: "100%", position: "relative" }}>
       <Canvas camera={{ position: [0, 6, 6], fov: 60 }}>
         <ambientLight intensity={1} />
         <pointLight position={[10, 10, 10]} />
+
+        {cameraMode === "orbit" && (
+          <OrbitControls ref={orbitControlsRef} enablePan={false} />
+        )}
+
+        {cameraMode === "free" && <FreeCameraControls />}
 
         {cells.map(({ x, z }) => {
           const key = cellKey(x, z);
@@ -94,7 +119,7 @@ export const MainScene = () => {
 
               {deletedMode && buildingHere && canDeleteBuilding(x, z) && (
                 <group position={[0, 1.4, 0]}>
-                  <Html center>
+                  <Html center key={`delete-${cameraMode}-${key}`}>
                     <TiDelete
                       size={36}
                       color="red"
@@ -117,7 +142,7 @@ export const MainScene = () => {
               key={`expand-${x}:${z}`}
               position={[x * CELL_SIZE, 0.6, z * CELL_SIZE]}
             >
-              <Html center>
+              <Html center key={`expand-${cameraMode}-${x}:${z}`}>
                 <div
                   style={{
                     display: "flex",
@@ -154,7 +179,6 @@ export const MainScene = () => {
               </Html>
             </group>
           ))}
-        <OrbitControls enablePan={false} />
       </Canvas>
 
       <GameHUD
@@ -165,9 +189,13 @@ export const MainScene = () => {
         onToggleExpandMode={() => setExpandMode((v) => !v)}
         deletedMode={deletedMode}
         onToggleDeletedMode={() => setDeletedMode((v) => !v)}
+        onOpenTutorial={() => setTutorialOpen(true)}
+        onRestart={handleRestartGame}
+        cameraMode={cameraMode}
+        onToggleCameraMode={handleToggleCameraMode}
       />
 
-      <RestartButton onRestart={handleRestartGame} />
+      <Tutorial isOpen={tutorialOpen} onClose={handleCloseTutorial} />
     </div>
   );
 };

@@ -5,11 +5,7 @@ import { BsBuildingFill } from "react-icons/bs";
 import type { BuildingSegmentKey } from "../../../types/buildingSegments";
 import { BUILDING_SEGMENTS } from "../../../types/buildingSegments";
 import { BUILDINGS } from "../../../types/building";
-
-type BuildingMenuProps = {
-  selectedBuilding?: BuildingType | null;
-  onSelectBuilding?: (buildingType: BuildingType | null) => void;
-};
+import type { BuildingMenuProps } from "../../../types/ui";
 
 export const BuildingMenu = ({
   selectedBuilding,
