@@ -14,6 +14,7 @@ IncCity is a minimalist city-building game that runs entirely in your browser. B
 - **3D Graphics** - Custom-built 3D models and platforms created purely with Three.js (no pre-made assets)
 - **Local Persistence** - Your progress is automatically saved to localStorage
 - **Game Reset** - Restart your city either manually or automatically when funds run out
+- **Multiple Camera Modes"" - Switch between different camera types (free camera and orbit) to view and manage your city from various perspectives
 
 ## 🛠️ Technologies
 
