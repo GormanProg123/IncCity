@@ -7,6 +7,7 @@ import { TutorialButton } from "../TutorialButton";
 import { RestartButton } from "../RestartButton";
 import { CameraModeToggle } from "../CameraModeToggle";
 import type { GameHUDProps } from "../../../types/ui";
+import { LanguageSelector } from "../LanguageSelector";
 
 export const GameHUD = ({
   selectedBuilding,
@@ -25,6 +26,7 @@ export const GameHUD = ({
     <>
       <div className="hud-top-left">
         <TutorialButton onOpen={onOpenTutorial} />
+        <LanguageSelector />
       </div>
 
       <div className="hud-top-center">

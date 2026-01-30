@@ -95,6 +95,24 @@
   font-weight: bold;
 }
 
+.building-menu-close {
+  margin-top: auto;
+  padding: 12px 16px;
+  background: #333;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.building-menu-close:hover {
+  background: #444;
+}
+
 .building-info {
   margin-top: 6px;
   padding: 8px 10px;
@@ -120,4 +138,156 @@
 .info-row.danger span:last-child {
   color: #ff6b6b;
   font-weight: bold;
+}
+
+.building-menu-backdrop {
+  display: none;
+}
+
+.building-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  pointer-events: none;
+}
+
+.building-menu-overlay .building-menu-backdrop,
+.building-menu-overlay .building-menu {
+  pointer-events: auto;
+}
+
+/* Desktop: panel at bottom center when in overlay */
+.building-menu-overlay .building-menu-backdrop {
+  display: none;
+}
+
+.building-menu-overlay .building-menu {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 768px) {
+  .building-menu-overlay .building-menu-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .building-menu-container {
+    position: static;
+    width: auto;
+    transform: none;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .toggle-button {
+    min-width: 52px;
+    min-height: 52px;
+    padding: 12px;
+    margin-bottom: 0;
+    border-radius: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .building-menu-overlay .building-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(300px, 85vw);
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 16px 12px;
+    padding-top: max(16px, env(safe-area-inset-top));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    gap: 14px;
+    border-radius: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease-out;
+  }
+
+  .building-menu-overlay.open .building-menu {
+    transform: translateX(0);
+  }
+
+  .building-menu-overlay .building-menu .building-segments,
+  .building-menu-overlay .building-menu .building-info,
+  .building-menu-overlay .building-menu .building-buttons {
+    flex-shrink: 0;
+  }
+
+  .building-menu-overlay .building-menu .building-buttons {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .building-menu-overlay .building-menu .building-menu-close {
+    flex-shrink: 0;
+  }
+
+  .building-segments {
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .building-segments button {
+    min-height: 46px;
+    min-width: 76px;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .building-buttons {
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .building-buttons button {
+    min-height: 52px;
+    width: 100%;
+    max-width: none;
+    padding: 14px 16px;
+    font-size: 16px;
+    border-radius: 10px;
+    -webkit-tap-highlight-color: transparent;
+    flex: none;
+    text-align: left;
+  }
+
+  .building-info {
+    padding: 14px 16px;
+    font-size: 15px;
+    gap: 8px;
+    border-radius: 10px;
+  }
+
+  .info-row {
+    font-size: 15px;
+  }
+
+  .building-menu-close {
+    min-height: 52px;
+    margin-top: auto;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 10px;
+  }
 }

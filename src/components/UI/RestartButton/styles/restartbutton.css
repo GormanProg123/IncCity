@@ -21,3 +21,13 @@
 .restart-button:active {
   background-color: #111;
 }
+
+@media (max-width: 768px) {
+  .restart-button {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 12px;
+    border-radius: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+}

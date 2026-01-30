@@ -1,0 +1,69 @@
+{
+  "building": {
+    "cost": "Cost",
+    "income": "Income",
+    "demolish": "Demolish",
+    "close": "Close"
+  },
+  "segment": {
+    "residential": "Residential",
+    "commercial": "Commercial",
+    "industrial": "Industrial",
+    "government": "Government",
+    "education": "Education"
+  },
+  "buildings": {
+    "five-floor": "Five-Storey House",
+    "nine-floor": "Nine-Storey House",
+    "hotel": "Hotel",
+    "supermarket": "Supermarket",
+    "restaurant": "Restaurant",
+    "cinema": "Cinema",
+    "bank": "Bank",
+    "factory": "Factory",
+    "hospital": "Hospital",
+    "police-station": "Police Station",
+    "fire-station": "Fire Station",
+    "school": "School",
+    "university": "University"
+  },
+  "camera": {
+    "orbit": "Orbit",
+    "free": "Free"
+  },
+  "tutorial": {
+    "pages": {
+      "welcome": {
+        "title": "Welcome to IncCity",
+        "subtitle": "Getting Started",
+        "intro": "Welcome to the city building game!",
+        "money": "You start with 100 initial money",
+        "territory": "You have an initial territory to build on",
+        "build": "Place buildings on the available cells to develop your city"
+      },
+      "building": {
+        "title": "Building Mechanics",
+        "subtitle": "How to Build",
+        "select": "Select a building from the menu",
+        "characteristics": "Each building has unique characteristics and costs",
+        "income": "Different buildings provide different income",
+        "delete": "Click the delete button to demolish buildings",
+        "demolishCost": "Demolishing costs money based on the building type"
+      },
+      "expansion": {
+        "title": "Expand Your Territory",
+        "subtitle": "Territory Expansion",
+        "expand": "Expand your territory to build more",
+        "cost": "Each expansion costs money",
+        "useButton": "Use the expand button to see available expansion cells",
+        "moreTerritory": "More territory = more building possibilities",
+        "plan": "Plan your city growth wisely to maximize income"
+      }
+    },
+    "buttons": {
+      "previous": "Previous",
+      "next": "Next",
+      "start": "Start Game"
+    }
+  }
+}
