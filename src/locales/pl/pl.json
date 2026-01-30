@@ -1,0 +1,69 @@
+{
+  "building": {
+    "cost": "Koszt",
+    "income": "Dochód",
+    "demolish": "Wyburz",
+    "close": "Zamknij"
+  },
+  "segment": {
+    "residential": "Mieszkaniowy",
+    "commercial": "Komercyjny",
+    "industrial": "Przemysłowy",
+    "government": "Rządowy",
+    "education": "Edukacja"
+  },
+  "buildings": {
+    "five-floor": "Budynek pięciopiętrowy",
+    "nine-floor": "Budynek dziewięciopiętrowy",
+    "hotel": "Hotel",
+    "supermarket": "Supermarket",
+    "restaurant": "Restauracja",
+    "cinema": "Kino",
+    "bank": "Bank",
+    "factory": "Fabryka",
+    "hospital": "Szpital",
+    "police-station": "Posterunek policji",
+    "fire-station": "Straż pożarna",
+    "school": "Szkoła",
+    "university": "Uniwersytet"
+  },
+  "camera": {
+    "orbit": "Kamera Orbitalna",
+    "free": "Wolna Kamera"
+  },
+  "tutorial": {
+    "pages": {
+      "welcome": {
+        "title": "Witamy w IncCity",
+        "subtitle": "Pierwsze kroki",
+        "intro": "Witaj w grze w budowanie miasta!",
+        "money": "Zaczynasz z 100 początkowymi pieniędzmi",
+        "territory": "Masz początkowe terytorium do zabudowy",
+        "build": "Umieszczaj budynki na dostępnych polach, aby rozwijać swoje miasto"
+      },
+      "building": {
+        "title": "Mechanika budowy",
+        "subtitle": "Jak budować",
+        "select": "Wybierz budynek z menu",
+        "characteristics": "Każdy budynek ma unikalne cechy i koszty",
+        "income": "Różne budynki zapewniają różny dochód",
+        "delete": "Kliknij przycisk usuń, aby wyburzyć budynki",
+        "demolishCost": "Wyburzenie kosztuje pieniądze w zależności od typu budynku"
+      },
+      "expansion": {
+        "title": "Rozszerz swoje terytorium",
+        "subtitle": "Ekspansja terytorium",
+        "expand": "Rozszerz swoje terytorium, aby budować więcej",
+        "cost": "Każde rozszerzenie kosztuje pieniądze",
+        "useButton": "Użyj przycisku rozszerzenia, aby zobaczyć dostępne pola",
+        "moreTerritory": "Więcej terytorium = więcej możliwości budowy",
+        "plan": "Planuj rozwój miasta mądrze, aby zmaksymalizować dochód"
+      }
+    },
+    "buttons": {
+      "previous": "Poprzedni",
+      "next": "Następny",
+      "start": "Rozpocznij grę"
+    }
+  }
+}

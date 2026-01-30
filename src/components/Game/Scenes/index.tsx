@@ -98,7 +98,16 @@ export const MainScene = () => {
         <pointLight position={[10, 10, 10]} />
 
         {cameraMode === "orbit" && (
-          <OrbitControls ref={orbitControlsRef} enablePan={false} />
+          <OrbitControls
+            ref={orbitControlsRef}
+            enablePan={false}
+            minDistance={3}
+            maxDistance={45}
+            minPolarAngle={0.2}
+            maxPolarAngle={Math.PI / 2 - 0.15}
+            enableDamping
+            dampingFactor={0.08}
+          />
         )}
 
         {cameraMode === "free" && <FreeCameraControls />}

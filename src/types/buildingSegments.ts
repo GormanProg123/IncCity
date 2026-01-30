@@ -9,46 +9,49 @@ export type BuildingSegmentKey =
 
 export const BUILDING_SEGMENTS: Record<
   BuildingSegmentKey,
-  { label: string; buildings: { type: BuildingType; label: string }[] }
+  {
+    labelKey: string;
+    buildings: { type: BuildingType; labelKey: string }[];
+  }
 > = {
   residential: {
-    label: "Residential",
+    labelKey: "segment.residential",
     buildings: [
-      { type: "five-floor", label: "Five-Storey House" },
-      { type: "nine-floor", label: "Nine-Storey House" },
-      { type: "hotel", label: "Hotel" },
+      { type: "five-floor", labelKey: "buildings.five-floor" },
+      { type: "nine-floor", labelKey: "buildings.nine-floor" },
+      { type: "hotel", labelKey: "buildings.hotel" },
     ],
   },
 
   commercial: {
-    label: "Commercial",
+    labelKey: "segment.commercial",
     buildings: [
-      { type: "supermarket", label: "Supermarket" },
-      { type: "restaurant", label: "Restaurant" },
-      { type: "cinema", label: "Cinema" },
-      { type: "bank", label: "Bank" },
+      { type: "supermarket", labelKey: "buildings.supermarket" },
+      { type: "restaurant", labelKey: "buildings.restaurant" },
+      { type: "cinema", labelKey: "buildings.cinema" },
+      { type: "bank", labelKey: "buildings.bank" },
     ],
   },
 
   industrial: {
-    label: "Industrial",
-    buildings: [{ type: "factory", label: "Factory" }],
+    labelKey: "segment.industrial",
+    buildings: [{ type: "factory", labelKey: "buildings.factory" }],
   },
 
   government: {
-    label: "Government",
+    labelKey: "segment.government",
     buildings: [
-      { type: "hospital", label: "Hospital" },
-      { type: "police-station", label: "Police Station" },
-      { type: "fire-station", label: "Fire Station" },
+      { type: "hospital", labelKey: "buildings.hospital" },
+      { type: "police-station", labelKey: "buildings.police-station" },
+      { type: "fire-station", labelKey: "buildings.fire-station" },
     ],
   },
 
   education: {
-    label: "Education",
+    labelKey: "segment.education",
     buildings: [
-      { type: "school", label: "School" },
-      { type: "university", label: "University" },
+      { type: "school", labelKey: "buildings.school" },
+      { type: "university", labelKey: "buildings.university" },
     ],
   },
 };

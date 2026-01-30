@@ -1,0 +1,69 @@
+{
+  "building": {
+    "cost": "Costo",
+    "income": "Ingresos",
+    "demolish": "Demoler",
+    "close": "Cerrar"
+  },
+  "segment": {
+    "residential": "Residencial",
+    "commercial": "Comercial",
+    "industrial": "Industrial",
+    "government": "Gobierno",
+    "education": "Educación"
+  },
+  "buildings": {
+    "five-floor": "Casa de Cinco Plantas",
+    "nine-floor": "Casa de Nueve Plantas",
+    "hotel": "Hotel",
+    "supermarket": "Supermercado",
+    "restaurant": "Restaurante",
+    "cinema": "Cine",
+    "bank": "Banco",
+    "factory": "Fábrica",
+    "hospital": "Hospital",
+    "police-station": "Comisaría",
+    "fire-station": "Estación de Bomberos",
+    "school": "Escuela",
+    "university": "Universidad"
+  },
+  "camera": {
+    "orbit": "Órbita",
+    "free": "Libre"
+  },
+  "tutorial": {
+    "pages": {
+      "welcome": {
+        "title": "Bienvenido a IncCity",
+        "subtitle": "Primeros pasos",
+        "intro": "¡Bienvenido al juego de construcción de ciudades!",
+        "money": "Comienzas con 100 de dinero inicial",
+        "territory": "Tienes un territorio inicial para construir",
+        "build": "Coloca edificios en las celdas disponibles para desarrollar tu ciudad"
+      },
+      "building": {
+        "title": "Mecánica de Construcción",
+        "subtitle": "Cómo Construir",
+        "select": "Selecciona un edificio del menú",
+        "characteristics": "Cada edificio tiene características y costos únicos",
+        "income": "Diferentes edificios proporcionan diferentes ingresos",
+        "delete": "Haz clic en el botón de eliminar para demoler edificios",
+        "demolishCost": "Demoler cuesta dinero según el tipo de edificio"
+      },
+      "expansion": {
+        "title": "Expande Tu Territorio",
+        "subtitle": "Expansión de Territorio",
+        "expand": "Expande tu territorio para construir más",
+        "cost": "Cada expansión cuesta dinero",
+        "useButton": "Usa el botón de expansión para ver celdas disponibles",
+        "moreTerritory": "Más territorio = más posibilidades de construcción",
+        "plan": "Planifica el crecimiento de tu ciudad sabiamente para maximizar ingresos"
+      }
+    },
+    "buttons": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "start": "Iniciar Juego"
+    }
+  }
+}
