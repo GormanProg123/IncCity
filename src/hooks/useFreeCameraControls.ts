@@ -24,8 +24,15 @@ import type {
   TouchPoint,
 } from "../types/freeCameraControls";
 
+function isMobileDevice(): boolean {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(pointer: coarse)").matches;
+}
+
 export function useFreeCameraControls(): void {
   const { camera, gl } = useThree();
+  const isMobile = useRef(isMobileDevice());
+
   const keys = useRef<Record<string, boolean>>({});
   const yaw = useRef(0);
   const pitch = useRef(0);
@@ -39,6 +46,7 @@ export function useFreeCameraControls(): void {
   const lastOneFinger = useRef<TouchPoint | null>(null);
   const lastPinchDistance = useRef(0);
   const lastPinchCenter = useRef<TouchPoint | null>(null);
+
   const yawVelocity = useRef(0);
   const pitchVelocity = useRef(0);
   const panVelocity = useRef(new THREE.Vector2(0, 0));
@@ -71,8 +79,9 @@ export function useFreeCameraControls(): void {
     const handleMouseUp = (e: MouseEvent) => {
       if (e.button === 2) {
         rightMouseDown.current = false;
-        if (document.pointerLockElement === gl.domElement)
+        if (document.pointerLockElement === gl.domElement) {
           document.exitPointerLock();
+        }
       }
     };
 
@@ -99,13 +108,14 @@ export function useFreeCameraControls(): void {
       document.removeEventListener("mouseup", handleMouseUp);
       gl.domElement.removeEventListener("wheel", handleWheel);
     };
-  }, [gl.domElement, camera]);
+  }, [gl.domElement]);
 
   useEffect(() => {
     const el = gl.domElement;
 
     const handleTouchStart = (e: TouchEvent) => {
       touchCount.current = e.touches.length;
+
       if (e.touches.length === 1) {
         lastOneFinger.current = {
           x: e.touches[0].clientX,
@@ -127,8 +137,10 @@ export function useFreeCameraControls(): void {
       if (e.touches.length === 1 && lastOneFinger.current) {
         const dx = e.touches[0].clientX - lastOneFinger.current.x;
         const dy = e.touches[0].clientY - lastOneFinger.current.y;
+
         yawVelocity.current -= dx * MOBILE_LOOK_SENSITIVITY;
         pitchVelocity.current -= dy * MOBILE_LOOK_SENSITIVITY;
+
         lastOneFinger.current = {
           x: e.touches[0].clientX,
           y: e.touches[0].clientY,
@@ -139,17 +151,20 @@ export function useFreeCameraControls(): void {
       if (e.touches.length === 2) {
         const pinchDist = getPinchDistance(e.touches);
         const center = getTouchCenter(e.touches);
+
         if (lastPinchDistance.current > 0) {
           const zoomDelta =
             (lastPinchDistance.current - pinchDist) * MOBILE_ZOOM_SENSITIVITY;
           zoomVelocity.current += zoomDelta;
         }
+
         if (lastPinchCenter.current) {
           panVelocity.current.x -=
             (center.x - lastPinchCenter.current.x) * MOBILE_PAN_SENSITIVITY;
           panVelocity.current.y +=
             (center.y - lastPinchCenter.current.y) * MOBILE_PAN_SENSITIVITY;
         }
+
         lastPinchDistance.current = pinchDist;
         lastPinchCenter.current = center;
       }
@@ -157,18 +172,9 @@ export function useFreeCameraControls(): void {
 
     const handleTouchEnd = (e: TouchEvent) => {
       touchCount.current = e.touches.length;
-      if (e.touches.length === 1) {
-        lastOneFinger.current = {
-          x: e.touches[0].clientX,
-          y: e.touches[0].clientY,
-        };
-        lastPinchDistance.current = 0;
-        lastPinchCenter.current = null;
-      } else if (e.touches.length !== 2) {
-        lastOneFinger.current = null;
-        lastPinchDistance.current = 0;
-        lastPinchCenter.current = null;
-      }
+      lastOneFinger.current = null;
+      lastPinchDistance.current = 0;
+      lastPinchCenter.current = null;
     };
 
     el.addEventListener("touchstart", handleTouchStart, { passive: true });
@@ -234,13 +240,15 @@ export function useFreeCameraControls(): void {
       if (camera.position.distanceTo(targetPos.current) < 0.01) {
         targetPos.current = null;
       }
-      clampCameraPosition(camera.position);
+      if (isMobile.current) clampCameraPosition(camera.position);
     } else {
       yaw.current += yawVelocity.current;
       pitch.current += pitchVelocity.current;
       pitch.current = Math.max(PITCH_MIN, Math.min(PITCH_MAX, pitch.current));
+
       yawVelocity.current *= INERTIA_DECAY;
       pitchVelocity.current *= INERTIA_DECAY;
+
       if (Math.abs(yawVelocity.current) < INERTIA_MIN) yawVelocity.current = 0;
       if (Math.abs(pitchVelocity.current) < INERTIA_MIN)
         pitchVelocity.current = 0;
@@ -251,6 +259,7 @@ export function useFreeCameraControls(): void {
         );
         const right = new THREE.Vector3(1, 0, 0).applyQuaternion(quat);
         const up = new THREE.Vector3(0, 1, 0);
+
         const panScale = 25;
         camera.position.addScaledVector(
           right,
@@ -260,6 +269,7 @@ export function useFreeCameraControls(): void {
           up,
           panVelocity.current.y * delta * panScale,
         );
+
         panVelocity.current.multiplyScalar(INERTIA_DECAY);
         if (panVelocity.current.lengthSq() < INERTIA_MIN * INERTIA_MIN) {
           panVelocity.current.set(0, 0);
@@ -284,22 +294,27 @@ export function useFreeCameraControls(): void {
       }
 
       if (Math.abs(zoomVelocity.current) > 0.001) {
-        const forward = new THREE.Vector3();
-        camera.getWorldDirection(forward);
-        forward.negate();
+        const toCenter = new THREE.Vector3(0, 0, 0)
+          .sub(camera.position)
+          .normalize();
+
         const zoomAmount = zoomVelocity.current * delta;
-        camera.position.addScaledVector(forward, zoomAmount);
+        camera.position.addScaledVector(toCenter, zoomAmount);
+
         zoomVelocity.current *= 1 - ZOOM_SMOOTHING;
         if (Math.abs(zoomVelocity.current) < 0.001) {
           zoomVelocity.current = 0;
         }
       }
 
-      clampCameraPosition(camera.position);
+      if (isMobile.current) clampCameraPosition(camera.position);
     }
 
-    if (initialized.current) {
-      camera.rotation.set(pitch.current, yaw.current, 0, "YXZ");
+    camera.rotation.set(pitch.current, yaw.current, 0, "YXZ");
+
+    if (isMobile.current) {
+      clampCameraPosition(camera.position);
+      camera.lookAt(0, 0, 0);
     }
   });
 }
