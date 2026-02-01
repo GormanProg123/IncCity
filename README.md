@@ -79,6 +79,14 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 Created by GormanProg123
 
+## 🙏 Acknowledgements
+
+A special thanks to **Oleh Shevchenko** for his support and contributions to the project (for help in translating the game into Ukrainian).
+
+- GitHub: https://github.com/oshevchenko2
+- GitLab: https://gitlab.com/oshevchenko2
+
+
 ---
 
 **Enjoy building your city! 🏗️**
