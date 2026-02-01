@@ -4,4 +4,5 @@ export const LANGUAGES = [
   { code: "pl", label: "PL" },
   { code: "by", label: "BY" },
   { code: "es", label: "ES" },
+  { code: "ua", label: "UA" },
 ] as const;
