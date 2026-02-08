@@ -3,7 +3,8 @@
     "cost": "Koszt",
     "income": "Dochód",
     "demolish": "Wyburz",
-    "close": "Zamknij"
+    "close": "Zamknij",
+    "tick": "chwila"
   },
   "segment": {
     "residential": "Mieszkaniowy",
@@ -30,6 +31,11 @@
   "camera": {
     "orbit": "Kamera Orbitalna",
     "free": "Wolna Kamera"
+  },
+  "gameOver": {
+    "money": "Nie masz wystarczająco pieniędzy!",
+    "restart": "Twoje pieniądze spadły poniżej 0! Gra zostanie zrestartowana",
+    "ownrestart": "Czy na pewno? To zrestartuje grę i stracisz cały postęp"
   },
   "tutorial": {
     "pages": {

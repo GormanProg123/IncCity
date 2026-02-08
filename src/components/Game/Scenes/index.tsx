@@ -9,9 +9,12 @@ import { useGameState } from "../../../hooks/useGameState";
 import { useCellExpansion } from "../../../hooks/useCellExpansion";
 import { useIncome } from "../../../hooks/useIncome";
 import { useBuildingDelete } from "../../../hooks/useBuildingDelete";
-import { Html } from "@react-three/drei";
+import { useRotationMode } from "../../../hooks/useRotationMode";
+import { Html, Line } from "@react-three/drei";
+import * as THREE from "three";
 import { IoIosAddCircle } from "react-icons/io";
 import { TiDelete } from "react-icons/ti";
+import { FaArrowsRotate } from "react-icons/fa6";
 import { BuildingRenderer } from "../BuildingRenderer";
 import { Tutorial } from "../../UI/Tutorial";
 import type { CameraMode } from "../../../types/CameraMode";
@@ -26,6 +29,10 @@ export const MainScene = () => {
     cells,
     builtBuildings,
     setBuiltBuildings,
+    buildingRotations,
+    selectedCell,
+    setSelectedCell,
+    rotateBuildingAt,
     selectedBuilding,
     setSelectedBuilding,
     buyBuilding,
@@ -42,6 +49,22 @@ export const MainScene = () => {
   );
   const orbitControlsRef = useRef<any>(null);
 
+  const { rotationMode, handleToggleRotationMode, disableRotationMode } =
+    useRotationMode({
+      onSetSelectedCell: setSelectedCell,
+      onSetDeletedMode: setDeletedMode,
+    });
+
+  const handleToggleDeletedMode = useCallback(() => {
+    setDeletedMode((prev) => {
+      if (!prev) {
+        disableRotationMode();
+        setTutorialOpen(false);
+      }
+      return !prev;
+    });
+  }, [disableRotationMode]);
+
   const handleToggleCameraMode = () => {
     if (cameraMode === "orbit") {
       setCameraMode("free");
@@ -52,12 +75,38 @@ export const MainScene = () => {
 
   const handleCellClick = useCallback(
     (x: number, z: number) => {
+      const key = cellKey(x, z);
+      if (rotationMode && builtBuildings[key]) {
+        setSelectedCell({ x, z });
+        return;
+      }
+      if (!rotationMode && builtBuildings[key]) {
+        return;
+      }
       if (deletedMode) return;
       if (!selectedBuilding) return;
-
       buyBuilding(x, z, selectedBuilding);
     },
-    [deletedMode, selectedBuilding, buyBuilding],
+    [
+      rotationMode,
+      deletedMode,
+      builtBuildings,
+      setSelectedCell,
+      selectedBuilding,
+      buyBuilding,
+    ],
+  );
+
+  const handleCellDoubleClick = useCallback(
+    (x: number, z: number) => {
+      if (!rotationMode) return;
+      const key = cellKey(x, z);
+      if (builtBuildings[key]) {
+        setSelectedCell({ x, z });
+        rotateBuildingAt(x, z);
+      }
+    },
+    [rotationMode, builtBuildings, setSelectedCell, rotateBuildingAt],
   );
 
   const handleExpand = useCallback(
@@ -84,11 +133,26 @@ export const MainScene = () => {
     resetGame();
     setExpandMode(false);
     setDeletedMode(false);
+    disableRotationMode();
   };
 
   const handleCloseTutorial = () => {
     setTutorialOpen(false);
     localStorage.setItem("tutorialSeen", "true");
+  };
+
+  const handleOpenTutorial = () => {
+    setExpandMode(false);
+    setDeletedMode(false);
+    disableRotationMode();
+    setTutorialOpen(true);
+  };
+
+  const handleToggleExpandMode = () => {
+    if (!expandMode) {
+      setTutorialOpen(false);
+    }
+    setExpandMode((v) => !v);
   };
 
   return (
@@ -115,37 +179,92 @@ export const MainScene = () => {
         {cells.map(({ x, z }) => {
           const key = cellKey(x, z);
           const buildingHere = builtBuildings[key];
+          const rotationDeg = buildingRotations[key] ?? 0;
+          const rotationYRad = (rotationDeg * Math.PI) / 180;
+          const isSelectedForRotation =
+            rotationMode &&
+            selectedCell &&
+            selectedCell.x === x &&
+            selectedCell.z === z;
 
           return (
             <group key={key} position={[x * CELL_SIZE, 0, z * CELL_SIZE]}>
-              <Cell onClick={() => handleCellClick(x, z)} />
-              <Grid color={buildingHere ? "gray" : "white"} />
-
-              <BuildingRenderer
-                buildingHere={buildingHere}
-                cellSize={CELL_SIZE}
+              <Cell
+                onClick={() => handleCellClick(x, z)}
+                onDoubleClick={() => handleCellDoubleClick(x, z)}
               />
-
-              {deletedMode && buildingHere && canDeleteBuilding(x, z) && (
-                <group position={[0, 1.4, 0]}>
-                  <Html center key={`delete-${cameraMode}-${key}`}>
-                    <TiDelete
-                      size={36}
-                      color="red"
-                      style={{ cursor: "pointer" }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteBuilding(x, z);
-                      }}
-                    />
-                  </Html>
-                </group>
+              <Grid color={buildingHere ? "gray" : "white"} />
+              {isSelectedForRotation && (
+                <Line
+                  points={[
+                    [-0.5, 0.52, -0.5],
+                    [0.5, 0.52, -0.5],
+                    [0.5, 0.52, 0.5],
+                    [-0.5, 0.52, 0.5],
+                    [-0.5, 0.52, -0.5],
+                  ].map((p) => new THREE.Vector3(p[0], p[1], p[2]))}
+                  color="#00ffff"
+                  lineWidth={3}
+                />
               )}
+
+              {!tutorialOpen &&
+                rotationMode &&
+                isSelectedForRotation &&
+                buildingHere && (
+                  <group position={[0, 1.4, 0]}>
+                    <Html center key={`rotate-${cameraMode}-${key}`}>
+                      <button
+                        type="button"
+                        className="rotate-button-above-building"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          rotateBuildingAt(x, z);
+                        }}
+                        aria-label="Rotate building 90°"
+                      >
+                        <FaArrowsRotate size={24} />
+                        <span className="rotate-button-above-building__label">
+                          90°
+                        </span>
+                      </button>
+                    </Html>
+                  </group>
+                )}
+
+              <group rotation={[0, rotationYRad, 0]}>
+                <BuildingRenderer
+                  buildingHere={buildingHere}
+                  cellSize={CELL_SIZE}
+                />
+              </group>
+
+              {!tutorialOpen &&
+                deletedMode &&
+                !rotationMode &&
+                buildingHere &&
+                canDeleteBuilding(x, z) && (
+                  <group position={[0, 1.4, 0]}>
+                    <Html center key={`delete-${cameraMode}-${key}`}>
+                      <TiDelete
+                        size={36}
+                        color="red"
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteBuilding(x, z);
+                        }}
+                      />
+                    </Html>
+                  </group>
+                )}
             </group>
           );
         })}
 
-        {expandMode &&
+        {!tutorialOpen &&
+          expandMode &&
           expansionCells.map(({ x, z, cost }) => (
             <group
               key={`expand-${x}:${z}`}
@@ -195,13 +314,15 @@ export const MainScene = () => {
         selectedBuilding={selectedBuilding}
         onSelectBuilding={setSelectedBuilding}
         expandMode={expandMode}
-        onToggleExpandMode={() => setExpandMode((v) => !v)}
+        onToggleExpandMode={handleToggleExpandMode}
         deletedMode={deletedMode}
-        onToggleDeletedMode={() => setDeletedMode((v) => !v)}
-        onOpenTutorial={() => setTutorialOpen(true)}
+        onToggleDeletedMode={handleToggleDeletedMode}
+        onOpenTutorial={handleOpenTutorial}
         onRestart={handleRestartGame}
         cameraMode={cameraMode}
         onToggleCameraMode={handleToggleCameraMode}
+        rotationMode={rotationMode}
+        onToggleRotationMode={handleToggleRotationMode}
       />
 
       <Tutorial isOpen={tutorialOpen} onClose={handleCloseTutorial} />

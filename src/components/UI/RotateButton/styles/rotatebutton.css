@@ -1,0 +1,77 @@
+.rotate-button {
+  padding: 10px;
+  background: #222;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 36px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.2s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rotate-button:hover {
+  background-color: #333;
+}
+
+.rotate-button:active {
+  background-color: #2f00ff;
+}
+
+.rotate-button--active {
+  background-color: #2f00ff;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.rotate-button--active:hover {
+  background-color: #4a2fff;
+}
+
+.rotate-button--rotate-90 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (pointer: coarse) {
+  .rotate-button {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 12px;
+  }
+}
+
+.rotate-button-above-building {
+  padding: 8px 12px;
+  background: #504c5f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+.rotate-button-above-building__label {
+  font-variant-numeric: tabular-nums;
+}
+.rotate-button-above-building:hover {
+  background: #413f50;
+}
+@media (pointer: coarse) {
+  .rotate-button-above-building {
+    min-width: 56px;
+    min-height: 48px;
+    padding: 10px 14px;
+    font-size: 20px;
+  }
+}

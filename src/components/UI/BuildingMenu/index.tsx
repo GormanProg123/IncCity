@@ -53,7 +53,8 @@ export const BuildingMenu = ({
               <div className="info-row">
                 <span>{t("building.income")}:</span>
                 <span>
-                  +{BUILDINGS[selectedBuilding].incomePerTick} 💵 / tick
+                  +{BUILDINGS[selectedBuilding].incomePerTick} 💵 /{" "}
+                  {t("building.tick")}
                 </span>
               </div>
             )}

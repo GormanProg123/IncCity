@@ -13,6 +13,10 @@ export type GameHUDProps = {
   onRestart: () => void;
   cameraMode: CameraMode;
   onToggleCameraMode: () => void;
+  rotationMode?: boolean;
+  onToggleRotationMode?: () => void;
+  onRotateSelectedBuilding?: () => void;
+  canRotateSelected?: boolean;
 };
 
 export type CameraModeToggleProps = {
@@ -41,6 +45,15 @@ export interface RestartButtonProps {
 export type ViewDeletedProps = {
   active: boolean;
   onToggle: () => void;
+  disabled?: boolean;
+};
+
+export type RotateButtonProps = {
+  active?: boolean;
+  onToggle: () => void;
+  disabled?: boolean;
+  "aria-label"?: string;
+  "aria-label-active"?: string;
 };
 
 export type ViewExpandedProps = {
