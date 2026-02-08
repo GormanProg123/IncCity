@@ -4,7 +4,13 @@ import type { ThreeEvent } from "@react-three/fiber";
 import grassImg from "../../../assets/grass3.jpg";
 import type { CellProps } from "../../../types/game";
 
-export const Cell = ({ size = 1, onClick, ...props }: CellProps) => {
+export const Cell = ({
+  size = 1,
+  onClick,
+  onDoubleClick,
+  onPointerDown,
+  ...props
+}: CellProps) => {
   const ref = useRef<THREE.Mesh>(null!);
 
   const earthTexture = useMemo(
@@ -17,8 +23,24 @@ export const Cell = ({ size = 1, onClick, ...props }: CellProps) => {
     onClick?.(e);
   };
 
+  const handleDoubleClick = (e: ThreeEvent<MouseEvent>) => {
+    e.stopPropagation();
+    onDoubleClick?.(e);
+  };
+
+  const handlePointerDown = (e: ThreeEvent<PointerEvent>) => {
+    e.stopPropagation();
+    onPointerDown?.(e);
+  };
+
   return (
-    <mesh ref={ref} {...props} onClick={handleClick}>
+    <mesh
+      ref={ref}
+      {...props}
+      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
+      onPointerDown={handlePointerDown}
+    >
       <boxGeometry args={[size, size, size]} />
       <meshStandardMaterial map={earthTexture} />
     </mesh>

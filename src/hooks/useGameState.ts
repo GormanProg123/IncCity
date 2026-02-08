@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
-import type { CellCoord, BuiltBuildingsMap } from "../types/cell";
+import type {
+  CellCoord,
+  BuiltBuildingsMap,
+  BuildingRotationsMap,
+} from "../types/cell";
 import { cellKey } from "../types/cell";
 import type { BuildingType } from "../types/building";
 import { BUILDINGS } from "../types/building";
+import { useTranslation } from "react-i18next";
 
 const INITIAL_MONEY = 100;
 
@@ -13,7 +18,10 @@ const INITIAL_CELLS: CellCoord[] = [
   { x: 1, z: 1 },
 ];
 
+export type SelectedCell = { x: number; z: number } | null;
+
 export const useGameState = () => {
+  const { t } = useTranslation();
   const [money, setMoney] = useState<number>(() => {
     const saved = localStorage.getItem("money");
     return saved ? Number(saved) : 100;
@@ -31,15 +39,60 @@ export const useGameState = () => {
     },
   );
 
+  const [buildingRotations, setBuildingRotations] =
+    useState<BuildingRotationsMap>(() => {
+      const saved = localStorage.getItem("buildingRotations");
+      return saved ? JSON.parse(saved) : {};
+    });
+
+  const [selectedCell, setSelectedCell] = useState<SelectedCell>(null);
+
   const [selectedBuilding, setSelectedBuilding] = useState<BuildingType | null>(
     null,
   );
+
+  const rotateBuildingAt = (x: number, z: number) => {
+    const key = cellKey(x, z);
+    if (!builtBuildings[key]) return;
+    const current = buildingRotations[key] ?? 0;
+    const next = (current + 90) % 360;
+    setBuildingRotations((prev) => ({
+      ...prev,
+      [key]: next as 0 | 90 | 180 | 270,
+    }));
+  };
+
+  const setBuildingRotation = (x: number, z: number, degrees: number) => {
+    const key = cellKey(x, z);
+    if (!builtBuildings[key]) return;
+    const normalized = ((degrees % 360) + 360) % 360;
+    setBuildingRotations((prev) => ({
+      ...prev,
+      [key]: normalized,
+    }));
+  };
+
+  const snapBuildingRotationAt = (x: number, z: number) => {
+    const key = cellKey(x, z);
+    if (!builtBuildings[key]) return;
+    const current = buildingRotations[key] ?? 0;
+    const snapped = Math.round(current / 90) * 90;
+    const normalized = snapped % 360;
+    setBuildingRotations((prev) => ({
+      ...prev,
+      [key]: normalized as 0 | 90 | 180 | 270,
+    }));
+  };
 
   useEffect(() => {
     localStorage.setItem("money", money.toString());
     localStorage.setItem("cells", JSON.stringify(cells));
     localStorage.setItem("builtBuildings", JSON.stringify(builtBuildings));
-  }, [money, cells, builtBuildings]);
+    localStorage.setItem(
+      "buildingRotations",
+      JSON.stringify(buildingRotations),
+    );
+  }, [money, cells, builtBuildings, buildingRotations]);
 
   const buyBuilding = (x: number, z: number, buildingType: BuildingType) => {
     const key = cellKey(x, z);
@@ -47,7 +100,7 @@ export const useGameState = () => {
 
     const cost = BUILDINGS[buildingType].cost;
     if (money < cost) {
-      alert("Not enough money!");
+      alert(t("gameOver.money"));
       return false;
     }
 
@@ -62,7 +115,7 @@ export const useGameState = () => {
 
   const expandCell = (x: number, z: number, expandCost: number) => {
     if (money < expandCost) {
-      alert("Not enough money!");
+      alert(t("gameOver.money"));
       return false;
     }
 
@@ -74,6 +127,8 @@ export const useGameState = () => {
 
   const clearAllBuildings = () => {
     setBuiltBuildings({});
+    setBuildingRotations({});
+    setSelectedCell(null);
   };
 
   const resetCells = () => {
@@ -84,10 +139,13 @@ export const useGameState = () => {
     localStorage.removeItem("money");
     localStorage.removeItem("cells");
     localStorage.removeItem("builtBuildings");
+    localStorage.removeItem("buildingRotations");
 
     setMoney(INITIAL_MONEY);
     setCells(INITIAL_CELLS);
     setBuiltBuildings({});
+    setBuildingRotations({});
+    setSelectedCell(null);
     setSelectedBuilding(null);
   };
 
@@ -97,9 +155,7 @@ export const useGameState = () => {
     localStorage.setItem("builtBuildings", JSON.stringify(builtBuildings));
 
     if (money < 0) {
-      const confirmed = window.confirm(
-        "Your money has dropped below 0! Game will restart.",
-      );
+      const confirmed = window.confirm(t("gameOver.restart"));
       if (confirmed) {
         setTimeout(() => {
           resetGame();
@@ -115,6 +171,12 @@ export const useGameState = () => {
     setCells,
     builtBuildings,
     setBuiltBuildings,
+    buildingRotations,
+    selectedCell,
+    setSelectedCell,
+    rotateBuildingAt,
+    setBuildingRotation,
+    snapBuildingRotationAt,
     selectedBuilding,
     setSelectedBuilding,
     buyBuilding,
